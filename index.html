@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>Swiftvalidate by dtop</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>Swiftvalidate</h1>
+        <h2>enhanced validation for swift</h2>
+        <a href="https://github.com/dtop/SwiftValidate" class="button"><small>View project on</small> GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h1>
+<a id="swiftvalidate" class="anchor" href="#swiftvalidate" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>SwiftValidate</h1>
+
+<p><a href="https://travis-ci.org/dtop/SwiftValidate"><img src="https://travis-ci.org/dtop/SwiftValidate.svg" alt="Build Status"></a>
+<a href="https://developer.apple.com/swift"><img src="https://img.shields.io/badge/Swift-2.1-blue.svg" alt="Compatibility"></a>
+<a href="https://cocoapods.org"><img src="https://img.shields.io/badge/CocoaPods-Compatible-brightgreen.svg" alt="DependencyManagement"></a>
+<a href="https://github.com/Carthage/Carthage"><img src="https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat" alt="Carthage compatible"></a>
+<a href="https://raw.githubusercontent.com/dtop/SwiftValidate/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="GitHub license"></a>
+<a href="https://codebeat.co/projects/github-com-dtop-swiftvalidate"><img src="https://codebeat.co/badges/e6b1e8da-2b4a-46b9-ad1d-9bdd057fbb58" alt="codebeat badge"></a>
+<a href="https://codecov.io/github/dtop/SwiftValidate?branch=master"><img src="https://codecov.io/github/dtop/SwiftValidate/coverage.svg?branch=master" alt="codecov.io"></a>
+<a href="https://github.com/dtop/SwiftValidate"><img src="https://img.shields.io/github/release/dtop/SwiftValidate.svg" alt="GitHub release"></a></p>
+
+<h5>
+<a id="enhanced-validation-for-swift" class="anchor" href="#enhanced-validation-for-swift" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>enhanced validation for swift</h5>
+
+<p>By <a href="http://blog.danilo-topalovic.de">Danilo Topalovic</a>.</p>
+
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#requirements">Requirements</a></li>
+<li><a href="#installation">Installation</a></li>
+<li><a href="#usage">Usage</a></li>
+<li>
+<a href="#included-validators">Included Validators</a>
+
+<ul>
+<li><a href="#validatorrequired">Required</a></li>
+<li><a href="#validatorempty">Empty</a></li>
+<li><a href="#validatorstrlen">StrLen</a></li>
+<li><a href="#validatorcharset">Charset</a></li>
+<li><a href="#validatoralnum">Alnum</a></li>
+<li><a href="#validatoremail">Email</a></li>
+<li><a href="#validatorregex">Regex</a></li>
+<li><a href="#validatornumeric">Numeric</a></li>
+<li><a href="#validatorbetween">Between</a></li>
+<li><a href="#validatorgreaterthan">GreaterThan</a></li>
+<li><a href="#validatorsmallerthan">SmallerThan</a></li>
+<li><a href="#validatordatetime">DateTime</a></li>
+<li><a href="#validatordatebetween">DateBetween</a></li>
+<li><a href="#validatorcallback">Callback</a></li>
+<li><a href="#validatorinarray">InArray</a></li>
+</ul>
+</li>
+<li><a href="#extensibility">Extensibility</a></li>
+</ul>
+
+<h3>
+<a id="introduction" class="anchor" href="#introduction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Introduction</h3>
+
+<p>Unfortunately I did not find a fancy name for this software so I've called it what it is - a validator.</p>
+
+<p>Heavily inspired by <a href="https://github.com/zendframework/zend-validator">Zend\Validate</a> and <a href="https://github.com/xmartlabs/Eureka">Eureka</a> I started working on this component and I still add tests / validators.
+if you encounter any issues or bugs please feel free to report the bug or even write a test for this bug in order to be good again when the bug is solved.</p>
+
+<p>See also the <a href="https://github.com/dtop/swift-validate-example">ExampleProject</a></p>
+
+<p>If you are also missing a kind of filtering for form inputs see <a href="https://github.com/dtop/SwiftFilter">SwiftFilter</a></p>
+
+<h2>
+<a id="requirements" class="anchor" href="#requirements" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Requirements</h2>
+
+<ul>
+<li>iOS 8.0+</li>
+<li>Xcode 7.0+</li>
+</ul>
+
+<h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation</h2>
+
+<p>See <a href="https://cocoapods.org">CocoaPods</a> for easy installation into your project</p>
+
+<p>Add <code>SwiftValidate</code> to your <code>Podfile</code> like</p>
+
+<pre><code>platform :ios, '8.0'
+use_frameworks!
+
+pod 'SwiftValidate'
+
+</code></pre>
+
+<p>Of course you can use it in <a href="https://github.com/Carthage/Carthage">Carthage</a> as well</p>
+
+<pre><code>github "dtop/SwiftValidate"
+
+</code></pre>
+
+<h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>All validators are usable completely on their own but one of the main advantages of <code>SwiftValidate</code> is that the validators are chainable.
+Add as many validators to a single chain as you need for properly validate your value.</p>
+
+<div class="highlight highlight-source-swift"><pre><span class="pl-k">let</span> validatorChain <span class="pl-k">=</span> ValidatorChain() {
+    $<span class="pl-c1">0</span><span class="pl-k">.</span>stopOnFirstError <span class="pl-k">=</span> <span class="pl-c1">true</span>
+    $<span class="pl-c1">0</span><span class="pl-k">.</span>stopOnException <span class="pl-k">=</span> <span class="pl-c1">true</span>
+} <span class="pl-k">&lt;~~</span> ValidatorRequired() {
+    $<span class="pl-c1">0</span><span class="pl-k">.</span>errorMessage <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>Enter the value!<span class="pl-pds">"</span></span>
+} <span class="pl-k">&lt;~~</span> ValidatorEmpty() {
+    $<span class="pl-c1">0</span><span class="pl-k">.</span>allowNil <span class="pl-k">=</span> <span class="pl-c1">false</span>
+} <span class="pl-k">&lt;~~</span> ValidatorStrLen() {
+    $<span class="pl-c1">0</span><span class="pl-k">.</span>minLength <span class="pl-k">=</span> <span class="pl-c1">3</span>
+    $<span class="pl-c1">0</span><span class="pl-k">.</span>maxLength <span class="pl-k">=</span> <span class="pl-c1">30</span>
+    $<span class="pl-c1">0</span><span class="pl-k">.</span>errorMessageTooSmall <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>My fancy own error message<span class="pl-pds">"</span></span>
+}
+
+<span class="pl-k">let</span> myValue <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>testValue<span class="pl-pds">"</span></span>
+
+<span class="pl-k">let</span> result <span class="pl-k">=</span> validatorChain<span class="pl-k">.</span>validate(myValue, context: <span class="pl-c1">nil</span>)
+<span class="pl-k">let</span> errors <span class="pl-k">=</span> validatorChain<span class="pl-k">.</span>errors</pre></div>
+
+<p>If you are dealing with a lot of values (e.g. a form result) you can easily predefine an ValidationIterator and add several chains linked to the form fields name to it.</p>
+
+<p>see the extraction of the ValidationIteratorTests:</p>
+
+<div class="highlight highlight-source-swift"><pre>
+        <span class="pl-c">// form values given by some user</span>
+        <span class="pl-k">let</span> formResults: [<span class="pl-c1">String</span>: <span class="pl-c1">Any</span>?] <span class="pl-k">=</span> [
+            <span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>John Appleseed<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>street<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>1456 Sesame Street<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>zipcode<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>01526<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>city<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Somewhere<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>country<span class="pl-pds">"</span></span>: <span class="pl-c1">nil</span>
+        ]
+
+        <span class="pl-k">let</span> validationIterator <span class="pl-k">=</span> ValidationIterator() {
+            $<span class="pl-c1">0</span><span class="pl-k">.</span>resultForUnknownKeys <span class="pl-k">=</span> <span class="pl-c1">true</span>
+        }
+
+        <span class="pl-c">// name, street, city</span>
+        validationIterator<span class="pl-k">.</span>registerChain(
+            ValidatorChain() {
+                    $<span class="pl-c1">0</span><span class="pl-k">.</span>stopOnException <span class="pl-k">=</span> <span class="pl-c1">true</span>
+                    $<span class="pl-c1">0</span><span class="pl-k">.</span>stopOnFirstError <span class="pl-k">=</span> <span class="pl-c1">true</span>
+                }
+                <span class="pl-k">&lt;~~</span> ValidatorRequired()
+                <span class="pl-k">&lt;~~</span> ValidatorEmpty()
+                <span class="pl-k">&lt;~~</span> ValidatorStrLen() {
+                    $<span class="pl-c1">0</span><span class="pl-k">.</span>minLength <span class="pl-k">=</span> <span class="pl-c1">3</span>
+                    $<span class="pl-c1">0</span><span class="pl-k">.</span>maxLength <span class="pl-k">=</span> <span class="pl-c1">50</span>
+                },
+            forKeys: [<span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>street<span class="pl-pds">"</span></span>]
+        )
+
+        <span class="pl-c">// zipcode</span>
+        validationIterator<span class="pl-k">.</span>registerChain(
+            ValidatorChain() {
+                $<span class="pl-c1">0</span><span class="pl-k">.</span>stopOnException <span class="pl-k">=</span> <span class="pl-c1">true</span>
+                $<span class="pl-c1">0</span><span class="pl-k">.</span>stopOnFirstError <span class="pl-k">=</span> <span class="pl-c1">true</span>
+            }
+            <span class="pl-k">&lt;~~</span> ValidatorRequired()
+            <span class="pl-k">&lt;~~</span> ValidatorStrLen() {
+                $<span class="pl-c1">0</span><span class="pl-k">.</span>minLength <span class="pl-k">=</span> <span class="pl-c1">5</span>
+                $<span class="pl-c1">0</span><span class="pl-k">.</span>maxLength <span class="pl-k">=</span> <span class="pl-c1">5</span>
+            }
+            <span class="pl-k">&lt;~~</span> ValidatorNumeric() {
+                $<span class="pl-c1">0</span><span class="pl-k">.</span>allowString <span class="pl-k">=</span> <span class="pl-c1">true</span>
+                $<span class="pl-c1">0</span><span class="pl-k">.</span>allowFloatingPoint <span class="pl-k">=</span> <span class="pl-c1">false</span>
+            },
+            forKey: <span class="pl-s"><span class="pl-pds">"</span>zipcode<span class="pl-pds">"</span></span>
+        )
+
+        <span class="pl-c">// country (not required but if present between 3 and 50 chars)</span>
+        validationIterator<span class="pl-k">.</span>registerChain(
+            ValidatorChain() {
+                $<span class="pl-c1">0</span><span class="pl-k">.</span>stopOnException <span class="pl-k">=</span> <span class="pl-c1">true</span>
+                $<span class="pl-c1">0</span><span class="pl-k">.</span>stopOnFirstError <span class="pl-k">=</span> <span class="pl-c1">true</span>
+            }
+            <span class="pl-k">&lt;~~</span> ValidatorStrLen() {
+                $<span class="pl-c1">0</span><span class="pl-k">.</span>minLength <span class="pl-k">=</span> <span class="pl-c1">3</span>
+                $<span class="pl-c1">0</span><span class="pl-k">.</span>maxLength <span class="pl-k">=</span> <span class="pl-c1">50</span>
+            },
+            forKey: <span class="pl-s"><span class="pl-pds">"</span>country<span class="pl-pds">"</span></span>
+        )
+
+
+        <span class="pl-k">let</span> validationResult <span class="pl-k">=</span> validationIterator<span class="pl-k">.</span>validate(formResults)
+        <span class="pl-k">let</span> cityInError <span class="pl-k">=</span> validationIterator<span class="pl-k">.</span>isInError(<span class="pl-s"><span class="pl-pds">"</span>city<span class="pl-pds">"</span></span>)
+</pre></div>
+
+<p>see <a href="https://github.com/dtop/SwiftValidate/wiki">WiKi</a> for more examples and explinations</p>
+
+<h2>
+<a id="included-validators" class="anchor" href="#included-validators" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Included Validators</h2>
+
+<h4>
+<a id="validatorrequired" class="anchor" href="#validatorrequired" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ValidatorRequired()</h4>
+
+<p>Since all other validators allow nil from default setting, this validator can be added first to
+check the value is present.
+It is also equipped with a callback where you can decide by value and context if the requiry is satisfied or not.</p>
+
+<p>Configuration</p>
+
+<p><strong>Configuration</strong></p>
+
+<table>
+<thead>
+<tr>
+<th>value</th>
+<th align="center">type</th>
+<th>default</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>requirementCondition</code></td>
+<td align="center">closure</td>
+<td>?</td>
+<td>optional custom requirement check</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Error Messages</strong></p>
+
+<ul>
+<li>
+<code>errorMessage</code> - error message if value is nil</li>
+</ul>
+
+<hr>
+
+<h4>
+<a id="validatorempty" class="anchor" href="#validatorempty" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ValidatorEmpty()</h4>
+
+<p>Tests if the given value is not an empty string</p>
+
+<p><strong>Configuration</strong></p>
+
+<table>
+<thead>
+<tr>
+<th>value</th>
+<th align="center">type</th>
+<th>default</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>allowNil</code></td>
+<td align="center">Bool</td>
+<td>true</td>
+<td>value can be nil</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Error Messages</strong></p>
+
+<ul>
+<li>
+<code>errorMessage</code> - error message if value is empty</li>
+</ul>
+
+<hr>
+
+<h4>
+<a id="validatorstrlen" class="anchor" href="#validatorstrlen" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ValidatorStrLen()</h4>
+
+<p>Tests if a given value is between min and max in strlen</p>
+
+<p><strong>Configuration</strong></p>
+
+<table>
+<thead>
+<tr>
+<th>value</th>
+<th align="center">type</th>
+<th>default</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>allowNil</code></td>
+<td align="center">Bool</td>
+<td>true</td>
+<td>value an be nil</td>
+</tr>
+<tr>
+<td><code>minLength</code></td>
+<td align="center">Int</td>
+<td>3</td>
+<td>minimum length of string</td>
+</tr>
+<tr>
+<td><code>maxLength</code></td>
+<td align="center">Int</td>
+<td>30</td>
+<td>maximum length of string</td>
+</tr>
+<tr>
+<td><code>minInclusive</code></td>
+<td align="center">Bool</td>
+<td>true</td>
+<td>minimum inclusive in value</td>
+</tr>
+<tr>
+<td><code>maxInclusive</code></td>
+<td align="center">Bool</td>
+<td>true</td>
+<td>maximum inclusive in value</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Error Messages</strong></p>
+
+<ul>
+<li>
+<code>errorMessageTooSmall: String</code> - error message if string is not long enaugh</li>
+<li>
+<code>errorMessageTooLarge: String</code>- error message if string is too long</li>
+</ul>
+
+<hr>
+
+<h4>
+<a id="validatorcharset" class="anchor" href="#validatorcharset" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ValidatorCharset()</h4>
+
+<p>Validates that the given value contains only chars from the given character set</p>
+
+<p><strong>configuration</strong></p>
+
+<table>
+<thead>
+<tr>
+<th>value</th>
+<th align="center">type</th>
+<th>default</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>allowNil</code></td>
+<td align="center">Bool</td>
+<td>true</td>
+<td>value an be nil</td>
+</tr>
+<tr>
+<td><code>allowEmpty</code></td>
+<td align="center">Bool</td>
+<td>false</td>
+<td>value can be empty</td>
+</tr>
+<tr>
+<td><code>charset</code></td>
+<td align="center">NSCharacterSet</td>
+<td>!</td>
+<td>charset to compare</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Error Messages</strong></p>
+
+<ul>
+<li>
+<code>errorMessageStringDoesNotFit: String</code> - (optional)</li>
+</ul>
+
+<hr>
+
+<h3>
+<a id="validatoralnum" class="anchor" href="#validatoralnum" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ValidatorAlnum()</h3>
+
+<p>Validates if the given value consists of alpha numerical chars only</p>
+
+<pre><code>This is a specialization of ValidatorCharset()
+</code></pre>
+
+<hr>
+
+<h4>
+<a id="validatoremail" class="anchor" href="#validatoremail" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ValidatorEmail()</h4>
+
+<p>Validates a given email address</p>
+
+<p><strong>Configuration</strong></p>
+
+<table>
+<thead>
+<tr>
+<th>value</th>
+<th align="center">type</th>
+<th>default</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>allowNil</code></td>
+<td align="center">Bool</td>
+<td>true</td>
+<td>value an be nil</td>
+</tr>
+<tr>
+<td><code>validateLocalPart</code></td>
+<td align="center">Bool</td>
+<td>true</td>
+<td>the local part of the mail address will be validated</td>
+</tr>
+<tr>
+<td><code>validateHostnamePart</code></td>
+<td align="center">Bool</td>
+<td>true</td>
+<td>the hostname part of the mail address will be validated</td>
+</tr>
+<tr>
+<td><code>validateTopLevelDomain</code></td>
+<td align="center">Bool</td>
+<td>true</td>
+<td>the address has to have a topleveldomain</td>
+</tr>
+<tr>
+<td><code>strict</code></td>
+<td align="center">Bool</td>
+<td>true</td>
+<td>the length of the parts will also be validated</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Error Messages</strong></p>
+
+<ul>
+<li>
+<code>errorMessageInvalidAddress</code> - address is invalid</li>
+<li>
+<code>errorMessageInvalidLocalPart</code> - the local part (before @) is invalid</li>
+<li>
+<code>errorMessageInvalidHostnamePart</code> - the hostname is invalid</li>
+<li>
+<code>errorMessagePartLengthExceeded</code> - a part is exceeding its length</li>
+</ul>
+
+<hr>
+
+<h4>
+<a id="validatorregex" class="anchor" href="#validatorregex" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ValidatorRegex()</h4>
+
+<p>Validates a given string against a user definded regex</p>
+
+<table>
+<thead>
+<tr>
+<th>value</th>
+<th align="center">type</th>
+<th>default</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>allowNil</code></td>
+<td align="center">Bool</td>
+<td>true</td>
+<td>nil is allowed</td>
+</tr>
+<tr>
+<td><code>pattern</code></td>
+<td align="center">String</td>
+<td>-</td>
+<td>the pattern to match against</td>
+</tr>
+<tr>
+<td><code>options</code></td>
+<td align="center">NSRegularExpressionOptions</td>
+<td>0</td>
+<td>options for the regular expression</td>
+</tr>
+<tr>
+<td><code>matchingOptions</code></td>
+<td align="center">NSMatchingOptions</td>
+<td>0</td>
+<td>options for the matching</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Error Messages</strong></p>
+
+<ul>
+<li>
+<code>errorMessageValueIsNotMatching</code> - value does not match teh given pattern</li>
+</ul>
+
+<hr>
+
+<h4>
+<a id="validatornumeric" class="anchor" href="#validatornumeric" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ValidatorNumeric()</h4>
+
+<p>Validates if the given value is a valid number</p>
+
+<p><strong>Configuration</strong></p>
+
+<table>
+<thead>
+<tr>
+<th>value</th>
+<th align="center">type</th>
+<th>default</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>allowNil</code></td>
+<td align="center">Bool</td>
+<td>true</td>
+<td>nil is allowed</td>
+</tr>
+<tr>
+<td><code>allowString</code></td>
+<td align="center">Bool</td>
+<td>true</td>
+<td>value can be a numerical string</td>
+</tr>
+<tr>
+<td><code>allowFloatingPoint</code></td>
+<td align="center">Bool</td>
+<td>true</td>
+<td>value can be a floatingpoint value</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Error Messages</strong></p>
+
+<ul>
+<li>
+<code>errorMessageNotNumeric</code> - value is not numeric</li>
+</ul>
+
+<hr>
+
+<h4>
+<a id="validatorbetween" class="anchor" href="#validatorbetween" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ValidatorBetween()</h4>
+
+<p>Validates if a numerical value is between 2 predefined values</p>
+
+<p>Generic:</p>
+
+<div class="highlight highlight-source-swift"><pre><span class="pl-k">let</span> validator <span class="pl-k">=</span> ValidatorBetween<span class="pl-k">&lt;</span><span class="pl-c1">Double</span><span class="pl-k">&gt;</span>() {
+    $<span class="pl-c1">0</span><span class="pl-k">.</span>minValue <span class="pl-k">=</span> <span class="pl-c1">1</span><span class="pl-k">.</span><span class="pl-c1">0</span>
+    $<span class="pl-c1">0</span><span class="pl-k">.</span>maxValue <span class="pl-k">=</span> <span class="pl-c1">99</span><span class="pl-k">.</span><span class="pl-c1">1</span>
+}</pre></div>
+
+<p><strong>Configuration</strong></p>
+
+<table>
+<thead>
+<tr>
+<th>value</th>
+<th align="center">type</th>
+<th>default</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>allowNil</code></td>
+<td align="center">Bool</td>
+<td>true</td>
+<td>nil is allowed</td>
+</tr>
+<tr>
+<td><code>allowString</code></td>
+<td align="center">Bool</td>
+<td>true</td>
+<td>value can be a numerical string</td>
+</tr>
+<tr>
+<td><code>minValue</code></td>
+<td align="center">TYPE</td>
+<td>0</td>
+<td>the minimum value</td>
+</tr>
+<tr>
+<td><code>maxValue</code></td>
+<td align="center">TYPE</td>
+<td>0</td>
+<td>the maximum value</td>
+</tr>
+<tr>
+<td><code>minInclusive</code></td>
+<td align="center">Bool</td>
+<td>true</td>
+<td>minimum value inclusive (&gt;= instead of &gt;)</td>
+</tr>
+<tr>
+<td><code>maxInclusive</code></td>
+<td align="center">Bool</td>
+<td>true</td>
+<td>maximum value inclusive</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Error Messages</strong></p>
+
+<ul>
+<li>
+<code>errorMessageInvalidType</code> - invalid type given [-should be thrown-]</li>
+<li>
+<code>errorMessageNotBetween</code> - value is not between the predefined values</li>
+</ul>
+
+<hr>
+
+<h4>
+<a id="validatorgreaterthan" class="anchor" href="#validatorgreaterthan" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ValidatorGreaterThan()</h4>
+
+<p>Validates if the given value is greater than the predefined one</p>
+
+<p>Generic:</p>
+
+<div class="highlight highlight-source-swift"><pre><span class="pl-k">let</span> validator <span class="pl-k">=</span> ValidatorGreaterThan<span class="pl-k">&lt;</span><span class="pl-c1">Double</span><span class="pl-k">&gt;</span>() {
+    $<span class="pl-c1">0</span><span class="pl-k">.</span><span class="pl-c1">min</span> <span class="pl-k">=</span> <span class="pl-c1">1</span><span class="pl-k">.</span><span class="pl-c1">0</span>
+}</pre></div>
+
+<p><strong>Configuration</strong></p>
+
+<table>
+<thead>
+<tr>
+<th>value</th>
+<th align="center">type</th>
+<th>default</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>allowNil</code></td>
+<td align="center">Bool</td>
+<td>true</td>
+<td>nil is allowed</td>
+</tr>
+<tr>
+<td><code>min</code></td>
+<td align="center">TYPE</td>
+<td>0</td>
+<td>the value that needs to be exceeded</td>
+</tr>
+<tr>
+<td><code>inclusive</code></td>
+<td align="center">Bool</td>
+<td>true</td>
+<td>value itself inclusive</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Error Messages</strong></p>
+
+<ul>
+<li>
+<code>errorMessageInvalidType</code> - invalid type given [-should be thrown-]</li>
+<li>
+<code>errorMessageNotGreaterThan</code> - value is not great enaugh</li>
+</ul>
+
+<hr>
+
+<h4>
+<a id="validatorsmallerthan" class="anchor" href="#validatorsmallerthan" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ValidatorSmallerThan()</h4>
+
+<p>Validates if the given value is smaller than the predefined one</p>
+
+<p>Generic:</p>
+
+<div class="highlight highlight-source-swift"><pre><span class="pl-k">let</span> validator <span class="pl-k">=</span> ValidatorSmallerThan<span class="pl-k">&lt;</span><span class="pl-c1">Double</span><span class="pl-k">&gt;</span>() {
+    $<span class="pl-c1">0</span><span class="pl-k">.</span><span class="pl-c1">max</span> <span class="pl-k">=</span> <span class="pl-c1">10</span><span class="pl-k">.</span><span class="pl-c1">0</span>
+}</pre></div>
+
+<p><strong>Configuration</strong></p>
+
+<table>
+<thead>
+<tr>
+<th>value</th>
+<th align="center">type</th>
+<th>default</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>allowNil</code></td>
+<td align="center">Bool</td>
+<td>true</td>
+<td>nil is allowed</td>
+</tr>
+<tr>
+<td><code>max</code></td>
+<td align="center">TYPE</td>
+<td>0</td>
+<td>the value that needs to be exceeded</td>
+</tr>
+<tr>
+<td><code>inclusive</code></td>
+<td align="center">Bool</td>
+<td>true</td>
+<td>value itself inclusive</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Error Messages</strong></p>
+
+<ul>
+<li>
+<code>errorMessageInvalidType</code> - invalid type given [-should be thrown-]</li>
+<li>
+<code>errorMessageNotSmallerThan</code> - value is not small enaugh</li>
+</ul>
+
+<hr>
+
+<h4>
+<a id="validatordatetime" class="anchor" href="#validatordatetime" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ValidatorDateTime()</h4>
+
+<p>Validates if the given date is a valid one</p>
+
+<p><strong>Configuration</strong></p>
+
+<table>
+<thead>
+<tr>
+<th>value</th>
+<th align="center">type</th>
+<th>default</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>allowNil</code></td>
+<td align="center">Bool</td>
+<td>true</td>
+<td>nil is allowed</td>
+</tr>
+<tr>
+<td><code>dateFormat</code></td>
+<td align="center">String</td>
+<td>0</td>
+<td>the date format to be parsed</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Error Messages</strong></p>
+
+<ul>
+<li>
+<code>errorMessageInvalidDate</code> - invalid date given</li>
+</ul>
+
+<hr>
+
+<h4>
+<a id="validatordatebetween" class="anchor" href="#validatordatebetween" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ValidatorDateBetween()</h4>
+
+<p>Validates if the given date (NSDate or String) is between the predefined dates</p>
+
+<p><strong>Configuration</strong></p>
+
+<table>
+<thead>
+<tr>
+<th>value</th>
+<th align="center">type</th>
+<th>default</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>allowNil</code></td>
+<td align="center">Bool</td>
+<td>true</td>
+<td>nil is allowed</td>
+</tr>
+<tr>
+<td><code>min</code></td>
+<td align="center">NSDate</td>
+<td>!</td>
+<td>minimum date</td>
+</tr>
+<tr>
+<td><code>max</code></td>
+<td align="center">NSDate</td>
+<td>!</td>
+<td>maximum date</td>
+</tr>
+<tr>
+<td><code>minInclusive</code></td>
+<td align="center">Bool</td>
+<td>true</td>
+<td>minimum value inclusive (&gt;= instead of &gt;)</td>
+</tr>
+<tr>
+<td><code>maxInclusive</code></td>
+<td align="center">Bool</td>
+<td>true</td>
+<td>maximum value inclusive</td>
+</tr>
+<tr>
+<td><code>dateFormatter</code></td>
+<td align="center">NSDateFormatter</td>
+<td>!</td>
+<td>date formatter for parsing the string if string is expected</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Error Messages</strong></p>
+
+<ul>
+<li>
+<code>errorMessageNotBetween</code> - Date is not between the predefined ones</li>
+</ul>
+
+<hr>
+
+<h4>
+<a id="validatorcallback" class="anchor" href="#validatorcallback" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ValidatorCallback()</h4>
+
+<p>Executes the given callback and works with the results</p>
+
+<p><strong>Configuration</strong></p>
+
+<table>
+<thead>
+<tr>
+<th>value</th>
+<th align="center">type</th>
+<th>default</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>allowNil</code></td>
+<td align="center">Bool</td>
+<td>true</td>
+<td>nil is allowed</td>
+</tr>
+<tr>
+<td><code>callback</code></td>
+<td align="center">closure</td>
+<td>!</td>
+<td>the callback to validate with</td>
+</tr>
+</tbody>
+</table>
+
+<p>Callback be like:</p>
+
+<div class="highlight highlight-source-swift"><pre><span class="pl-k">let</span> validator <span class="pl-k">=</span> ValidatorCallback() {
+    $<span class="pl-c1">0</span><span class="pl-k">.</span>callback <span class="pl-k">=</span> {(validator: ValidatorCallback, value: <span class="pl-c1">Any</span>?, context: [<span class="pl-c1">String</span> <span class="pl-k">:</span> <span class="pl-c1">Any</span>?]?) <span class="pl-k">in</span>
+
+        <span class="pl-k">if</span> <span class="pl-c1">nil</span> <span class="pl-k">==</span> value {
+            <span class="pl-c">/// you can throw</span>
+            <span class="pl-k">throw</span> NSError(domain: <span class="pl-s"><span class="pl-pds">"</span>my domain<span class="pl-pds">"</span></span>, code: <span class="pl-c1">1</span>, userInfo: [NSLocalizedDescriptionKey: <span class="pl-s"><span class="pl-pds">"</span>nil!!<span class="pl-pds">"</span></span>])
+        }
+
+        <span class="pl-k">return</span> (<span class="pl-c1">false</span>, <span class="pl-s"><span class="pl-pds">"</span>My Error Message<span class="pl-pds">"</span></span>)
+        <span class="pl-c">/// return (true, nil)</span>
+    }
+}</pre></div>
+
+<hr>
+
+<h4>
+<a id="validatorinarray" class="anchor" href="#validatorinarray" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ValidatorInArray()</h4>
+
+<p>Validates that the given value is contained in the predefined array</p>
+
+<p>Generic:</p>
+
+<div class="highlight highlight-source-swift"><pre><span class="pl-k">let</span> validator <span class="pl-k">=</span> ValidatorInArray<span class="pl-k">&lt;</span><span class="pl-c1">String</span><span class="pl-k">&gt;</span>() {
+    $<span class="pl-c1">0</span><span class="pl-k">.</span><span class="pl-c1">array</span> <span class="pl-k">=</span> [<span class="pl-s"><span class="pl-pds">"</span>Andrew<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>Bob<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>Cole<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>Dan<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>Edwin<span class="pl-pds">"</span></span>]
+}
+
+<span class="pl-k">let</span> validator <span class="pl-k">=</span> ValidatorInArray<span class="pl-k">&lt;</span><span class="pl-c1">Double</span><span class="pl-k">&gt;</span>() {
+    $<span class="pl-c1">0</span><span class="pl-k">.</span>allowNil <span class="pl-k">=</span> <span class="pl-c1">false</span>
+    $<span class="pl-c1">0</span><span class="pl-k">.</span><span class="pl-c1">array</span> <span class="pl-k">=</span> [<span class="pl-c1">2</span><span class="pl-k">.</span><span class="pl-c1">4</span>, <span class="pl-c1">3</span><span class="pl-k">.</span><span class="pl-c1">1</span>, <span class="pl-c1">9</span><span class="pl-k">.</span><span class="pl-c1">8</span>, <span class="pl-c1">4</span><span class="pl-k">.</span><span class="pl-c1">9</span>, <span class="pl-c1">2</span><span class="pl-k">.</span><span class="pl-c1">0</span>]
+}</pre></div>
+
+<p><strong>Configuration</strong></p>
+
+<table>
+<thead>
+<tr>
+<th>value</th>
+<th align="center">type</th>
+<th>default</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>allowNil</code></td>
+<td align="center">Bool</td>
+<td>true</td>
+<td>nil is allowed</td>
+</tr>
+<tr>
+<td><code>array</code></td>
+<td align="center">[TYPE]</td>
+<td>[]</td>
+<td>the array with predefined values</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Error Messages</strong></p>
+
+<ul>
+<li>
+<code>errorMessageItemIsNotContained</code> - given value is not contained in the array</li>
+</ul>
+
+<h1>
+<a id="extensibility" class="anchor" href="#extensibility" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Extensibility</h1>
+
+<p>Non generic:</p>
+
+<div class="highlight highlight-source-swift"><pre><span class="pl-k">class</span> MyValidator: BaseValidator, ValidatorProtocol {
+
+    <span class="pl-k">required</span> <span class="pl-k">public</span> <span class="pl-k">init</span>(<span class="pl-k">@noescape</span> _ initializer: MyValidator <span class="pl-k">-&gt;</span> () <span class="pl-k">=</span> { _ <span class="pl-k">in</span> }) {
+        <span class="pl-k">super</span><span class="pl-k">.</span><span class="pl-k">init</span>()
+        initializer(<span class="pl-k">self</span>)
+    }
+
+    <span class="pl-k">override</span> <span class="pl-k">func</span> <span class="pl-en">validate</span>&lt;T: <span class="pl-c1">Any</span>&gt;(value: T?, context: [<span class="pl-c1">String</span>: <span class="pl-c1">Any</span>?]?) throws <span class="pl-k">-&gt;</span> <span class="pl-c1">Bool</span> {
+        <span class="pl-c">/// ...</span>
+    }
+}</pre></div>
+
+<p>Generic:</p>
+
+<div class="highlight highlight-source-swift"><pre><span class="pl-k">class</span> MyGenericValidator<span class="pl-k">&lt;</span>TYPE <span class="pl-k">where</span> TYPE: <span class="pl-c1">Equatable</span><span class="pl-k">&gt;</span>: ValidatorProtocol, ValidationAwareProtocol {
+
+    <span class="pl-k">required</span> <span class="pl-k">public</span> <span class="pl-k">init</span>(<span class="pl-k">@noescape</span> _ initializer: MyGenericValidator <span class="pl-k">-&gt;</span> () <span class="pl-k">=</span> { _ <span class="pl-k">in</span> }) {
+        initializer(<span class="pl-k">self</span>)
+    }
+
+    <span class="pl-k">public</span> <span class="pl-k">func</span> <span class="pl-en">validate</span>&lt;T: <span class="pl-c1">Any</span>&gt;(value: T?, context: [<span class="pl-c1">String</span>: <span class="pl-c1">Any</span>?]?) throws <span class="pl-k">-&gt;</span> <span class="pl-c1">Bool</span> {
+        <span class="pl-c">/// ...</span>
+    }
+}</pre></div>
+
+
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/dtop/SwiftValidate/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/dtop/SwiftValidate/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/dtop/SwiftValidate"></a> is maintained by <a href="https://github.com/dtop">dtop</a>.</p>
+
+          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
+    </div>
+
+  
+  </body>
+</html>
